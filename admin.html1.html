@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard | Lost & Found</title>
+<style>
+:root{--deep:#435b43;--green:#829b70;--sage:#a9bd91;--pale:#eef2e7;--cream:#f8f8f1;--ink:#354235;--muted:#71806d;--line:#dce4d3}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:var(--cream);color:var(--ink);line-height:1.5}header{background:var(--deep);color:white;padding:18px 6%;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.brand{font-size:1.2rem;font-weight:800}.brand span{color:#d7e4c6}header small{opacity:.85}main{width:min(1150px,94%);margin:28px auto 55px}h1,h2,h3{color:var(--deep)}h1{margin:0}h2{margin-top:0}.muted{color:var(--muted)}.toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center}button{border:0;border-radius:9px;padding:10px 15px;background:var(--green);color:white;font-weight:bold;cursor:pointer}button:hover{filter:brightness(.94)}button.secondary{background:#e8eddf;color:var(--deep)}button.danger{background:#a95c54}button.success{background:#668653}.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin:22px 0}.stat,.panel{background:white;border:1px solid var(--line);border-radius:15px;padding:18px;box-shadow:0 8px 22px #435b430c}.stat strong{font-size:2rem;color:var(--deep);display:block}.stat span{color:var(--muted)}.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:20px 0}.tab.active{background:var(--deep);color:white}.tab{background:#e8eddf;color:var(--deep)}.panel{margin:15px 0}.filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:15px}input,select{padding:11px;border:1px solid var(--line);border-radius:8px;font:inherit;width:100%}.record{border:1px solid var(--line);border-radius:12px;padding:15px;margin:12px 0;background:#fff}.record h3{margin:0 0 6px}.record p{margin:5px 0;color:var(--muted);overflow-wrap:anywhere}.pill{display:inline-block;background:var(--pale);color:var(--deep);border-radius:20px;padding:3px 9px;font-size:.78rem;font-weight:bold}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.empty{padding:25px;text-align:center;border:1px dashed var(--sage);border-radius:10px;color:var(--muted)}.activity{padding:12px 4px;border-bottom:1px solid var(--line)}.activity:last-child{border-bottom:0}.activity b{color:var(--deep)}.activity small{display:block;color:var(--muted)}.warning{background:var(--pale);padding:13px;border-left:4px solid var(--green);border-radius:7px;color:var(--deep)}footer{text-align:center;color:var(--muted);padding:20px;font-size:.85rem}
+</style></head>
+<body>
+<header><div><div class="brand">LOST <span>&</span> FOUND</div><small>Administrator Dashboard</small></div><div class="toolbar"><button class="secondary" onclick="refreshAll()">↻ Refresh Data</button><a href="index.html" style="color:white">Open Student Website</a></div></header>
+<main>
+<div><h1>Admin Dashboard</h1><p class="muted">Manage submitted reports, student claims, and website activities.</p></div>
+<p class="warning"><b>Shared demo storage:</b> This dashboard reads the same browser storage as index.html. Keep both files in the same folder and open them from the same local website/server. This demo is not a secure online database.</p>
+<section class="stats">
+<div class="stat"><strong id="totalReports">0</strong><span>Total Reports</span></div>
+<div class="stat"><strong id="pendingReports">0</strong><span>Pending Reports</span></div>
+<div class="stat"><strong id="totalClaims">0</strong><span>Total Claims</span></div>
+<div class="stat"><strong id="pendingClaims">0</strong><span>Pending Claims</span></div>
+<div class="stat"><strong id="activityCount">0</strong><span>Recorded Activities</span></div>
+</section>
+<nav class="tabs">
+<button class="tab active" data-tab="reports" onclick="showTab('reports',this)">Item Reports</button>
+<button class="tab" data-tab="claims" onclick="showTab('claims',this)">Claims</button>
+<button class="tab" data-tab="activities" onclick="showTab('activities',this)">Activity Log</button>
+</nav>
+<section id="reportsPanel" class="panel">
+<h2>Submitted Item Reports</h2>
+<div class="filters"><input id="reportSearch" placeholder="Search item or location" oninput="renderReports()"><select id="reportStatus" onchange="renderReports()"><option value="All">All statuses</option><option>Pending admin verification</option><option>Posted</option><option>Rejected</option><option>Resolved</option></select></div>
+<div id="reportsList"></div>
+</section>
+<section id="claimsPanel" class="panel" hidden>
+<h2>Student Claims</h2>
+<div class="filters"><input id="claimSearch" placeholder="Search item or claimant" oninput="renderClaims()"><select id="claimStatus" onchange="renderClaims()"><option value="All">All statuses</option><option>Pending admin review</option><option>Approved</option><option>Rejected</option></select></div>
+<div id="cl
